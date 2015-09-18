@@ -24,9 +24,42 @@ let stockApp = angular.module('stockApp', ['ui.router'])
     })
 });
 
-stockApp.controller( 'listQuotesController', function($scope) {
-  console.log('list');
+
+
+stockApp.controller( 'listQuotesController', function($scope, tracked, displayStocks) {
+  let quote = [];
+  tracked.read()
+  .then(function(res) {
+    console.log('res:', res.data);
+    $scope.trackedStocks = res.data;
+    displayStocks.listBuilder(res.data);
+
+  })
+    .catch(function(e) {
+      console.log('error', e)
+    })
 })
+
+stockApp.service("displayStocks", function($http){
+  
+  this.listBuilder = function(stockArr){
+    for (let i of stockArr){
+    console.log(this.getStocks(i));
+   }
+
+  }
+  this.getStocks = function(symbol){
+     return  $http.jsonp(`http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol=${symbol}&callback=JSON_CALLBACK`)
+     .success(function(data) {
+      console.log(data);
+      return data;
+        // quote.push({name: data.data.Symbol, price: data.data.LastPrice});
+        // console.log(quote);
+      }) ; 
+  }
+});
+
+
 
 stockApp.controller('mainController', function($scope){
 });
@@ -64,7 +97,6 @@ stockApp.controller('addStockController', function($scope, stockService, tracked
 
 stockApp.service("stockService", function($http){
   this.getStocks = function(company){
-    console.log("ok");
     return $http.jsonp(`http://dev.markitondemand.com/Api/v2/Lookup/jsonp?input=${company}&callback=JSON_CALLBACK`)
   }
 });

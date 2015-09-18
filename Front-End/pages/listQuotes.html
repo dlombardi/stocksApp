@@ -1,5 +1,9 @@
 <div class="jumbotron text-center">
-  <h1>About Pages</h1>
+  <h1>Tracked Stocks</h1>
 
   <p>{{ message }}</p>
 </div>
+
+<ul>
+	<li ng-repeat="(name, price) in stockList"> {{name}} {{price}}</li>
+</ul>
