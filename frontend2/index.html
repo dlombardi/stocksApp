@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stocks</title>
+</head>
+<body ng-app="stockTest" ng-controller='testCtrl'>
+	<h1>Stocks</h1>
+	<!-- <button ng-click='getTracked()'>Get Tracked</button> -->
+	<div class="add">
+		<input type="text" ng-model="newSymbol">
+		<button ng-click="addTracked()">Add</button>
+	</div>
+	<h3>Tracked Stocks:</h3>
+	<ul>
+		<li ng-repeat="stock in trackedStocks track by $index">{{stock}}</li>
+	</ul>
+	<script src= "bower_components/angular/angular.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
