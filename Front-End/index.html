@@ -1,12 +1,14 @@
 <!-- index.html -->
     <!DOCTYPE html>
-    <html ng-app="stockApp" ng-app="ngRoute">
+    <html ng-app="stockApp">
     <head>
       <!-- SCROLLS -->
       <!-- load bootstrap and fontawesome via CDN -->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
       <link rel="stylesheet" href="style.css">
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 
       <!-- SPELLS -->
       <!-- load angular and angular route via CDN -->
@@ -23,24 +25,19 @@
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="fa fa-home"></i> Start</a></li>
-                    <li><a href="#addStock"><i class="fa fa-shield"></i> Add Stock to Watch</a></li>
-                    <li><a href="#listQuotes"><i class="fa fa-comment"></i> Follow Stocks</a></li>
+                    <li><a href="#" ui-sref="home"><i class="fa fa-home"></i> Start</a></li>
+                    <li><a href="#" ui-sref="addStock"><i class="fa fa-shield"></i> Add Stock to Watch</a></li>
+                    <li><a href="#" ui-sref="listQuotes"><i class="fa fa-comment"></i> Follow Stocks</a></li>
                 </ul>
             </div>
             </nav>
         </header>
 
-        <!-- MAIN CONTENT AND INJECTED VIEWS -->
         <div id="main">
-            <!-- angular templating -->
-            <!-- this is where content will be injected -->
-            <div ng-view></div>
+
+            <div ui-view></div>
 
         </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.min.js"></script>
         <script src="dist/bundle.js"></script>
     </body>
     </html>

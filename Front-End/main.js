@@ -1,24 +1,27 @@
 'use strict';
 
-let stockApp = angular.module('stockApp', ['ngRoute']);
+let stockApp = angular.module('stockApp', ['ui.router'])
+.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
 
-stockApp.config(function($routeProvider) {
-  $routeProvider
-
-    .when("/", {
+    $stateProvider
+    .state("home", {
+      url: '/',
       templateUrl : "pages/home.html",
       controller  : "mainController"
     })
 
-    .when('/addStock', {
+    .state('addStock', {
+      url: '/addStock',
       templateUrl : 'pages/addStock.html',
       controller  : 'addStockController'
     })
 
-    .when('/listQuotes', {
+    .state('listQuotes', {
+      url: '/listQuotes',
       templateUrl : 'pages/listQuotes.html',
       controller  : 'listQuotesController'
-    });
+    })
 });
 
 stockApp.controller( 'listQuotesController', function($scope) {
@@ -35,7 +38,6 @@ stockApp.controller('addStockController', function($scope, stockService, tracked
     console.log(symbol);
     $scope.company = symbol;
   }
-
   $scope.trackInput = function(){
     stockService.getStocks($scope.company)
     .success(function(data){
@@ -43,13 +45,7 @@ stockApp.controller('addStockController', function($scope, stockService, tracked
       console.log($scope.stockList);
     });
   }
-
   tracked.read()
-  // $scope.getTracked = function() {
-    // tracked.get()
-    // .then(function(data) {
-      // console.log(data);
-    // })
   .then(function(res) {
     console.log('res:', res.data);
     $scope.trackedStocks = res.data;
@@ -57,8 +53,6 @@ stockApp.controller('addStockController', function($scope, stockService, tracked
     .catch(function(e) {
       console.log('error', e)
     })
-  // };
-
   $scope.addTracked = function() {
     tracked.add($scope.company)
     .then(function(data) {
@@ -66,7 +60,6 @@ stockApp.controller('addStockController', function($scope, stockService, tracked
       $scope.trackedStocks = data.data;
     })
   }
-
 });
 
 stockApp.service("stockService", function($http){
